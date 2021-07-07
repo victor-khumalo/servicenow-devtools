@@ -232,6 +232,7 @@
             <sys_class_name>sys_ui_section</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2021-04-21 15:01:05</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>70d40a1b1befe010f28a0d81ec4bcb5d</sys_id>
@@ -240,6 +241,7 @@
             <sys_overrides/>
             <sys_package display_value="DevTools" source="x_snc_devtools">d689f6901bd38450a89720a8ec4bcbfd</sys_package>
             <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="DevTools">d689f6901bd38450a89720a8ec4bcbfd</sys_scope>
             <sys_update_name>sys_ui_section_70d40a1b1befe010f28a0d81ec4bcb5d</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>

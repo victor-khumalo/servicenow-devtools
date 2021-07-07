@@ -106,10 +106,11 @@
         <update_guid_history>57e9efbfb3303010801683a62af7f000:-670882707</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Install DevTools">be0defb31b7030105331b8449b4bcb5b</sys_audit_delete>
+        <sys_audit_delete display_value="">be0defb31b7030105331b8449b4bcb5b</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-06-24 15:11:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
         <sys_id>4c1be2ebcd8e4816bdee2fc6629e3539</sys_id>
         <sys_metadata>980bac971ba45010a89720a8ec4bcb20</sys_metadata>
@@ -118,6 +119,7 @@
         <sys_package display_value="DevTools" source="x_snc_devtools">d689f6901bd38450a89720a8ec4bcbfd</sys_package>
         <sys_parent/>
         <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="DevTools">d689f6901bd38450a89720a8ec4bcbfd</sys_scope>
         <sys_scope_delete display_value="">00add56a207e4bf3800cdb72bd156af9</sys_scope_delete>
         <sys_update_name>sys_app_module_980bac971ba45010a89720a8ec4bcb20</sys_update_name>

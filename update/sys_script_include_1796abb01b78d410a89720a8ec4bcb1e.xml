@@ -113,8 +113,11 @@ TestDataAPI.prototype =
 
 		if (strSysId == null)
 		{
+			//this.Debug('CreateUser','Failed to create user '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateUser','User '+strName+' has been created. sys_id='+strUserSysId);
+		
 		return strSysId;
 	},
 	
@@ -142,6 +145,8 @@ TestDataAPI.prototype =
 		aRoles = GetArrayValue(aRoles); 
 		bTechnical = GetBoolValue(bTechnical);
 		
+		//this.Debug('CreateUser',strName+' '+RenderValue(aRoles));
+		
 		strPrefix = this.GetPrefix();
 		
 		var grUser = new GlideRecord('sys_user');
@@ -166,10 +171,13 @@ TestDataAPI.prototype =
 
 		if (strUserSysId == null)
 		{
+			//this.Debug('CreateUser','Failed to create user '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateUser','User '+strName+' has been created. sys_id='+strUserSysId);
 		
 		var grUserHasRole = new GlideRecord("sys_user_has_role");
+		//aRoles.forEach(function(strRole)
 		for (var nRole = 0; nRole < aRoles.length; nRole++)
 		{
 			var strRole = aRoles[nRole];
@@ -180,6 +188,7 @@ TestDataAPI.prototype =
 				grUserRole.query();
 				if (grUserRole.getRowCount() == 0)
 				{
+					//this.Debug('CreateUser','Trying without prefix');
 					grUserRole = new GlideRecord('sys_user_role');
 					grUserRole.addQuery('name','=',strRole);
 					grUserRole.query();
@@ -188,6 +197,7 @@ TestDataAPI.prototype =
 				{					
 					if (grUserRole.next())
 					{		
+						//this.Debug('CreateUser','Adding role: '+strRole);
 						grUserHasRole.initialize();
 						grUserHasRole.role = grUserRole.sys_id;
 						grUserHasRole.user = strUserSysId;
@@ -205,8 +215,8 @@ TestDataAPI.prototype =
 		var strPrefix = this.GetPrefix();
 		
 		var grUser = new GlideRecord('sys_user');
-		grUser.addQuery('user_name','STARTSWITH',strPrefix);
-		grUser.orderBy('user_name');
+		grUser.addQuery('name','STARTSWITH',strPrefix);
+		grUser.orderBy('name');
 		grUser.query();
 		while (grUser.next())
 		{
@@ -234,6 +244,8 @@ TestDataAPI.prototype =
 	{	
 		strName = GetStringValue(strName);
 		aUserNames = GetArrayValue(aUserNames);
+		
+		//this.Debug('CreateGroup',strName+' '+RenderValue(aUserNames));
 	
 		var strPrefix = this.GetPrefix();
 		
@@ -249,8 +261,10 @@ TestDataAPI.prototype =
 
 		if (strGroupSysId == null)
 		{
+			//this.Debug('CreateGroup','Failed to create group '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateGroup','Group '+strName+' has been created. sys_id='+strGroupSysId);		
 		
 		var grGroupMember = new GlideRecord('sys_user_grmember');
 		aUserNames.forEach(function(strUserName)
@@ -291,6 +305,8 @@ TestDataAPI.prototype =
 	{	
 		strName = GetStringValue(strName);
 		
+		//this.Debug('CreateRole',strName);
+	
 		var strPrefix = this.GetPrefix();
 		
 		var grRoleToDelete = new GlideRecord('sys_user_role');
@@ -306,8 +322,11 @@ TestDataAPI.prototype =
 
 		if (strRoleSysId == null)
 		{
+			//this.Debug('CreateRole','Failed to create role '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateRole','Role '+strName+' has been created. sys_id='+strRoleSysId);		
+		
 		return strRoleSysId;
 	},
 		
@@ -334,7 +353,9 @@ TestDataAPI.prototype =
 		strName = GetStringValue(strName);
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strCallerUserName = GetStringValue(strCallerUserName);
-		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);	
+		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
+
+		//this.Debug('CreateIncident',strName+' by '+strOpenedByUserName+' for '+strCallerUserName+', assign to '+strAssignmentGroupName);		
 
 		var strPrefix = this.GetPrefix(); 
 
@@ -383,8 +404,10 @@ TestDataAPI.prototype =
 		
 		if (strIncidentSysId == null)
 		{
+			//this.Debug('CreateIncident','Failed to create incident '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateIncident','Incident '+strName+' has been created. sys_id='+strIncidentSysId);				
 		return strIncidentSysId;
 	},
 
@@ -422,6 +445,8 @@ TestDataAPI.prototype =
 		strName = GetStringValue(strName);
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
+		
+		//this.Debug('CreateIncidentTask',strParentName+' '+strName+' '+strOpenedByUserName+' '+strAssignmentGroupName);		
 		
 		var strPrefix = this.GetPrefix(); 
 
@@ -472,8 +497,10 @@ TestDataAPI.prototype =
 		
 		if (strIncidentTaskSysId == null)
 		{
+			//this.Debug('CreateIncidentTask','Failed to create incident task '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateIncidentTask','Incident '+strName+' has been created. sys_id='+strIncidentTaskSysId);				
 		return strIncidentTaskSysId;
 	},
 	
@@ -501,7 +528,9 @@ TestDataAPI.prototype =
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strRequestedByUserName = GetStringValue(strRequestedByUserName);
 		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
-
+		
+		//this.Debug('CreateChangeRequest',strName+' by '+strOpenedByUserName+' for '+strRequestedByUserName+', assign to '+strAssignmentGroupName);		
+		
 		var strPrefix = this.GetPrefix(); 
 
 		var grChangeRequestToDelete = new GlideRecord('change_request');
@@ -548,8 +577,10 @@ TestDataAPI.prototype =
 		var strChangeRequestSysId = GlideRecordInsert(grChangeRequest);
 		if (strChangeRequestSysId == null)
 		{
+			//this.Debug('CreateChangeRequest','Failed to create change request '+strChangeRequestSysId+'!');
 			return null;
 		}
+		//this.Debug('CreateChangeRequest','Change request '+strName+' has been created. sys_id='+strChangeRequestSysId);			
 		return strChangeRequestSysId;
 	},
 		
@@ -577,6 +608,8 @@ TestDataAPI.prototype =
 		strName = GetStringValue(strName);
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
+		
+		//this.Debug('CreateChangeTask',strParentName+' '+strName+' '+strOpenedByUserName+' '+strAssignmentGroupName);		
 		
 		var strPrefix = this.GetPrefix(); 
 
@@ -627,8 +660,10 @@ TestDataAPI.prototype =
 		
 		if (strChangeTaskSysId == null)
 		{
+			//this.Debug('CreateChangeTask','Failed to create change task '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateChangeTask','Change task '+strName+' has been created. sys_id='+strChangeTaskSysId);				
 		return strChangeTaskSysId;
 	},
 	
@@ -656,7 +691,10 @@ TestDataAPI.prototype =
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
 
+		//this.Debug('CreateProblem',strName+' by '+strOpenedByUserName+', assigned to '+strAssignmentGroupName);		
+		
 		var strPrefix = this.GetPrefix(); 
+
 
 		var grProblemToDelete = new GlideRecord('problem');
 		grProblemToDelete.addQuery('short_description','=',strPrefix+strName);
@@ -692,8 +730,10 @@ TestDataAPI.prototype =
 		
 		if (strProblemSysId == null)
 		{
+			//this.Debug('CreateProblem','Failed to create problem '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateProblem','Problem '+strName+' has been created. sys_id='+strProblemSysId);				
 		return strProblemSysId;
 	},
 
@@ -722,6 +762,8 @@ TestDataAPI.prototype =
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
 
+		//this.Debug('CreateProblemTask',strParentName+' '+strName+' by '+strOpenedByUserName+', assigned to '+strAssignmentGroupName);		
+		
 		var strPrefix = this.GetPrefix(); 
 
 		var strShortDescription = strPrefix+strParentName+'_'+strName;
@@ -771,8 +813,10 @@ TestDataAPI.prototype =
 		
 		if (strProblemTaskSysId == null)
 		{
+			//this.Debug('CreateProblemTask','Failed to create problem task '+strName+'!');
 			return null;
 		}
+		//this.Debug('CreateProblemTask','Problem '+strName+' has been created. sys_id='+strProblemTaskSysId);				
 		return strProblemTaskSysId;
 	},
 	
@@ -800,6 +844,8 @@ TestDataAPI.prototype =
 		strOpenedByUserName = GetStringValue(strOpenedByUserName);
 		strRequestedForUserName = GetStringValue(strRequestedForUserName);
 		strAssignmentGroupName = GetStringValue(strAssignmentGroupName);
+		
+		//this.Debug('CreateRequest',strName+' by '+strOpenedByUserName+' for '+strRequestedForUserName+', assign to '+strAssignmentGroupName);		
 		
 		var strPrefix = this.GetPrefix(); 
 
@@ -847,8 +893,10 @@ TestDataAPI.prototype =
 		var strRequestSysId = GlideRecordInsert(grRequest);
 		if (strRequestSysId == null)
 		{
+			//this.Debug('CreateRequest','Failed to create request '+strRequestSysId+'!');
 			return null;
 		}
+		//this.Debug('CreateRequest','Request '+strName+' has been created. sys_id='+strRequestSysId);			
 		return strRequestSysId;
 		
 	},
@@ -877,6 +925,7 @@ TestDataAPI.prototype =
 		
 		if (strName == '')
 		{
+			this.Debug('CreateDatabaseView','Name must not be empty!');
 			return null;
 		}
 		
@@ -1022,14 +1071,16 @@ TestDataAPI.prototype =
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-05-13 14:53:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>1796abb01b78d410a89720a8ec4bcb1e</sys_id>
-        <sys_mod_count>140</sys_mod_count>
+        <sys_mod_count>138</sys_mod_count>
         <sys_name>TestDataAPI</sys_name>
         <sys_package display_value="DevTools" source="x_snc_devtools">d689f6901bd38450a89720a8ec4bcbfd</sys_package>
         <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="DevTools">d689f6901bd38450a89720a8ec4bcbfd</sys_scope>
         <sys_update_name>sys_script_include_1796abb01b78d410a89720a8ec4bcb1e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-07-05 13:35:23</sys_updated_on>
+        <sys_updated_on>2021-06-24 16:25:09</sys_updated_on>
     </sys_script_include>
 </record_update>
